@@ -51,6 +51,7 @@
 #include <linux/async.h>
 #include <linux/slab.h>
 #include <linux/pm_runtime.h>
+#include <linux/iosched_switcher.h>
 #include <asm/uaccess.h>
 #include <asm/unaligned.h>
 #ifdef CONFIG_USB_STORAGE_DETECT
@@ -3482,6 +3483,10 @@ static int sd_probe(struct device *dev)
 
  out_srpmb_ctx_alloc_fail:
 #endif
+
+	if (!strcmp(sdkp->disk->disk_name, "sde"))
+		init_iosched_switcher(sdp->request_queue);
+
 	return 0;
 
  out_free_index:
