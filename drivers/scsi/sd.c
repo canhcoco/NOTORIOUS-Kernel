@@ -3484,7 +3484,8 @@ static int sd_probe(struct device *dev)
  out_srpmb_ctx_alloc_fail:
 #endif
 
-	if (!strcmp(sdkp->disk->disk_name, "sde"))
+	if (!strcmp(sdkp->disk->disk_name, "sda") ||
+		!strcmp(sdkp->disk->disk_name, "sde"))
 		init_iosched_switcher(sdp->request_queue);
 
 	return 0;
